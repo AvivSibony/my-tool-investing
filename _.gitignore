@@ -1,0 +1,5 @@
+# לא מעלים הגדרות אישיות (כולל טוקן טלגרם) ומצב החשבון
+config.json
+state.json
+bot_state.json
+__pycache__/

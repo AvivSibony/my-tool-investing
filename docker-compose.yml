@@ -1,0 +1,15 @@
+# UNTESTED in the build sandbox (no Docker there). Put an HTTPS reverse proxy (Caddy/nginx/cloud LB) in front and set TRUST_PROXY=true.
+services:
+  db:
+    image: postgres:16
+    environment: { POSTGRES_USER: bot, POSTGRES_PASSWORD: "${DB_PASSWORD:?set DB_PASSWORD}", POSTGRES_DB: bot }
+    volumes: [ "pgdata:/var/lib/postgresql/data", "./server/schema.postgres.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro" ]
+    healthcheck: { test: ["CMD-SHELL", "pg_isready -U bot"], interval: 5s, retries: 10 }
+  server:
+    build: .
+    depends_on: { db: { condition: service_healthy } }
+    env_file: ./server/.env
+    environment: { DATABASE_URL: "postgres://bot:${DB_PASSWORD}@db:5432/bot", TRUST_PROXY: "true" }
+    ports: [ "127.0.0.1:3000:3000" ]
+    restart: unless-stopped
+volumes: { pgdata: {} }

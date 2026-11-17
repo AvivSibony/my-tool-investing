@@ -1,1 +1,27 @@
-{ "name": "@bot/engine", "private": true, "scripts": { "test": "tsx --test test/*.test.ts" } }
+{
+ "name": "@bot/mobile",
+ "private": true,
+ "main": "node_modules/expo/AppEntry.js",
+ "scripts": {
+  "start": "expo start",
+  "test": "tsx --test test/*.test.ts"
+ },
+ "dependencies": {
+  "expo": "*",
+  "react": "*",
+  "react-native": "*",
+  "react-native-svg": "*",
+  "expo-secure-store": "*",
+  "@react-navigation/native": "^7.0.0",
+  "@react-navigation/bottom-tabs": "^7.0.0",
+  "react-native-screens": "*",
+  "react-native-safe-area-context": "*",
+  "expo-notifications": "*",
+  "expo-device": "*",
+  "expo-constants": "*"
+ },
+ "devDependencies": {
+  "tsx": "*",
+  "typescript": "*"
+ }
+}
